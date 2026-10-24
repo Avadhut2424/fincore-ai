@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fincore_api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - APP_ENV=production
+      - DATABASE_URL=sqlite:///fincore_warehouse.db
+    volumes:
+      - ./fincore_warehouse.db:/app/fincore_warehouse.db
+    restart: unless-stopped
+    networks:
+      - fincore_net
+
+  frontend:
+    build:
+      context: ./react-frontend
+      dockerfile: Dockerfile
+    container_name: fincore_frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - fincore_net
+
+networks:
+  fincore_net:
+    driver: bridge
