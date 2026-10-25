@@ -127,7 +127,7 @@ Run the entire stack (FastAPI Backend + React Frontend) with a single command:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/Avadhut-2424/fincore-ai.git
+git clone https://github.com/Avadhut2424/fincore-ai.git
 cd fincore-ai
 
 # 2. Configure environment
